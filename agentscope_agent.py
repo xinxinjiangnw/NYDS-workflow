@@ -1,4 +1,4 @@
-"""
+﻿"""
 简化版 AgentScope 智能体示例：实现一个 ScraperAgent 与 AnalysisAgent 的接口，基于消息调用。
 真实 AgentScope 框架有自己的 Agent/Message API，这里先提供仿实现供集成与扩展。
 """
