@@ -1,0 +1,15 @@
+requests
+beautifulsoup4
+pandas
+plotly
+streamlit
+playwright
+rapidfuzz
+python-dateutil
+tqdm
+fastapi
+uvicorn[standard]
+celery[redis]
+redis
+python-multipart
+pydantic

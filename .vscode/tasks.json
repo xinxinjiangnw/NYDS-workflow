@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "agentscope:mvp:install-and-run",
+      "type": "shell",
+      "command": "python -m pip install -r requirements.txt; echo Installed; start /B streamlit run dashboard_app.py",
+      "presentation": {
+        "reveal": "always"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "agentscope:mvp:install-playwright-and-run",
+      "type": "shell",
+      "command": "python -m pip install -r requirements.txt; python -m playwright install; echo Installed; start /B streamlit run dashboard_app.py",
+      "presentation": {
+        "reveal": "always"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

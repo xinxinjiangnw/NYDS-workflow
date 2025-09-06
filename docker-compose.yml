@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7
+    container_name: agentscope_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  app:
+    build: .
+    container_name: agentscope_fastapi
+    volumes:
+      - ./:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  worker:
+    build: .
+    container_name: agentscope_celery_worker
+    command: celery -A backend.celery_app worker --loglevel=info --concurrency=2
+    volumes:
+      - ./:/app
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - redis
+      - app
+    restart: unless-stopped
+
+  flower:
+    image: mher/flower:1.0.0
+    container_name: agentscope_flower
+    ports:
+      - "5555:5555"
+    command: flower --broker=redis://redis:6379/0 --address=0.0.0.0 --port=5555
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+volumes:
+  redis_data:

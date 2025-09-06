@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Agentscope MVP Frontend</title>
+  <script src="/static/app.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    label { display: block; margin-top: 8px; }
+    input, button { padding: 6px; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <h2>选品抓取任务</h2>
+  <label>关键词 <input id="kw" value="核桃"></label>
+  <label>开始日期 <input id="start" type="date"></label>
+  <label>结束日期 <input id="end" type="date"></label>
+  <label>代理 (可选) <input id="proxy"></label>
+  <label>Cookies 文件 (可选) <input id="cookies"></label>
+  <button onclick="startScrape()">开始抓取</button>
+
+  <h3>任务状态</h3>
+  <div id="status"></div>
+
+  <h3>结果</h3>
+  <div id="result"></div>
+
+</body>
+</html>
